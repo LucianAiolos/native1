@@ -22,6 +22,7 @@ import HomeScreen from './pages/HomeScreen'
 import ProfileScreen from './pages/ProfileScreen';
 import {NavigationContainer} from '@react-navigation/native'
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import {
   Colors,
@@ -36,17 +37,18 @@ function App(): JSX.Element {
   // const isDarkMode = useColorScheme() === 'dark';
 
   const Stack = createNativeStackNavigator()
+  const Tab = createBottomTabNavigator()
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen
+      <Tab.Navigator>
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen
           name="Profile"
           component={ProfileScreen}
           // navigation={navigation}
         />
-      </Stack.Navigator>
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }
