@@ -1,12 +1,9 @@
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
- *
  * @format
  */
-
 /* eslint-disable */
-
 import React from 'react';
 import type {PropsWithChildren} from 'react';
 import {
@@ -42,13 +39,13 @@ function App(): JSX.Element {
   return (
     <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Login" component={HomeScreen} />
         <Tab.Screen
           name="Profile"
           component={ProfileScreen}
           // navigation={navigation}
         />
-      </Tab.Navigator>
+      </Tab.Navigator>  
     </NavigationContainer>
   );
 }
