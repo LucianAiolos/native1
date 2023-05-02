@@ -1,5 +1,6 @@
 /* eslint-disable */
 import styled from "styled-components/native";
+import {TextInput} from 'react-native'
 // import { Feather } from "@expo/vector-icons";
 
 // export const Container = styled.View`
@@ -40,8 +41,23 @@ export const CreateAccountTitle = styled.Text`
 //   color: ${({theme}) => theme.colors.danger};
 // `; 
 
-export const Input = styled.Text`
-  font-size: 20px;
-  background: black;
-  color: yellow;
-`
+// export const Input = styled.Text`
+//   font-size: 20px;
+//   background: rgba(200, 200, 200, .5);
+//   color: yellow;
+//   border-radius: 10px;
+//   padding: 5px;
+//   margin-bottom: 10px;
+// `
+
+export const Input = styled(TextInput).attrs(({theme}) => ({
+  placeholderTextColor: theme.colors.gray500
+}))`
+  width: 100%;
+  padding: 10px 15px;
+  background-color: ${({theme}) => theme.colors.gray800};
+  color: ${({theme}) => theme.colors.light};
+  border-radius: 10px;
+  margin-bottom: 8px;
+  font-size: 14px;
+`;
