@@ -4,13 +4,25 @@ import { ScrollView, Text, View, Button, TextInput, KeyboardAvoidingView} from '
 import {NavigationContainer} from '@react-navigation/native'
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { useFormik } from 'formik'
+import * as Yup from 'yup'
 
 const initialValues = {
   email: '',
   password: '',
 };
 
-const HomeScreen = ({ navigation } : {navigation: any}) => {
+const validationSchema =  Yup.object().shape({
+  email: Yup.string()
+    .label('Email')
+    .email('Enter a valid email')
+    .required('Please enter a registered Email'),
+  password: Yup.string()
+    .label("Password")
+    .required("Please enter a password")
+    .min(8, "password must be 8 characters long"),
+})
+
+const Login = ({ navigation } : {navigation: any}) => {
 // const navigation = useNavigation() 
 //can be used when navigation cannot be passed (ie deeply nested componenets)
 const onSubmit = (values: {}) => {
@@ -22,7 +34,7 @@ const onSubmit = (values: {}) => {
 
 const formik = useFormik({
   initialValues,
-  // validationSchema,
+  validationSchema,
   onSubmit,
 });
 
@@ -48,13 +60,15 @@ return (
       {/* <Container> */}
         <Text>Email</Text>
         <TextInput 
+          // style={InputStyle}
           placeholder="JohnSno@got.com"
           onChangeText={handleChange('password')}
           value={values.password}
-          // errorMessage={touched.password && errors.password}
+          // errorMessage={touched.email && errors.password}
         />
-        <Text>Password</Text>
+        <Text style={{ backgroundColor: "black", color: "yellow" }} >Password</Text>
         <TextInput 
+          style={{ backgroundColor: "black", color: "yellow" }}
           placeholder="Create password"
           onChangeText={handleChange('password')}
           value={values.password}
@@ -63,7 +77,7 @@ return (
         <Button 
           title="Sign in"
           onPress={handleSubmit} 
-          // isDisabled={!isValid || isSubmitting}
+          disabled={!isValid || isSubmitting} //isDisabled?
           // isLoading={isSubmitting}
         />
       {/* </Container> */}
@@ -76,4 +90,4 @@ return (
 );
 }
 
-export default HomeScreen
+export default Login

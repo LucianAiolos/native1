@@ -17,6 +17,7 @@ import {
 } from 'react-native';
 import HomeScreen from './pages/HomeScreen'
 import ProfileScreen from './pages/ProfileScreen';
+import Login from './pages/Login/Login'
 import {NavigationContainer} from '@react-navigation/native'
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -39,7 +40,7 @@ function App(): JSX.Element {
   return (
     <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen name="Login" component={HomeScreen} />
+        <Tab.Screen name="Login" component={Login} />
         <Tab.Screen
           name="Profile"
           component={ProfileScreen}
