@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React from 'react';
-import { ScrollView, Text, View, Button, TextInput, KeyboardAvoidingView} from 'react-native';
+import { ScrollView, Text, View, Button, TextInput, KeyboardAvoidingView, Pressable, StyleSheet } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native'
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { useFormik } from 'formik'
@@ -85,13 +85,13 @@ return (
           value={values.password}
           // errorMessage={touched.password && errors.password}
         />
-        <Button 
-          style={{background: "goldenrod", borderRadius: 10}}
-          title="Submit"
+        <Pressable
           onPress={handleSubmit} 
-          disabled={!isValid || isSubmitting} //isDisabled?
-          // isLoading={isSubmitting}
-        />
+          // disabled={!isValid || isSubmitting} //isDisabled?
+           style={buttonStyles.button}
+        >
+          <Text style={buttonStyles.text}>Submit</Text>
+        </Pressable>
       {/* </Container> */}
     </ScrollView>
     <Text>Or</Text>
@@ -101,7 +101,28 @@ return (
       {/* <Icon name="log-in" /> */}
       {/* <CreateAccountTitle>Don't have an account? Sign Up</CreateAccountTitle> */}
   </KeyboardAvoidingView>
-);
+ ) 
 }
+
+
+const buttonStyles = StyleSheet.create({
+  button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 15,
+    elevation: 3,
+    backgroundColor: 'goldenrod',
+  },
+  text: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: 'white'
+  }
+})
+
 
 export default SignUp
