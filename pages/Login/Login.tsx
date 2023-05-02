@@ -5,6 +5,7 @@ import {NavigationContainer} from '@react-navigation/native'
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+import { CreateAccountButton, CreateAccountTitle } from './loginStyles';
 
 const initialValues = {
   email: '',
@@ -62,13 +63,12 @@ return (
         <TextInput 
           // style={InputStyle}
           placeholder="JohnSno@got.com"
-          onChangeText={handleChange('password')}
-          value={values.password}
+          onChangeText={handleChange('email')}
+          value={values.email}
           // errorMessage={touched.email && errors.password}
         />
-        <Text style={{ backgroundColor: "black", color: "yellow" }} >Password</Text>
+        <Text  >Password</Text>
         <TextInput 
-          style={{ backgroundColor: "black", color: "yellow" }}
           placeholder="Create password"
           onChangeText={handleChange('password')}
           value={values.password}
@@ -83,7 +83,9 @@ return (
       {/* </Container> */}
     </ScrollView>
     <Text>Or</Text>
-    <Button title="Create Account" onPress={() => navigation.navigate('SignUp')}/>
+    <CreateAccountButton title="Create Account" onPress={() => navigation.navigate('SignUp')}>
+      <CreateAccountTitle>Don't have an account? Sign Up</CreateAccountTitle>
+    </CreateAccountButton>
       {/* <Icon name="log-in" /> */}
       {/* <CreateAccountTitle>Don't have an account? Sign Up</CreateAccountTitle> */}
   </KeyboardAvoidingView>

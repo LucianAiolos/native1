@@ -2,18 +2,18 @@
 import styled from "styled-components/native";
 // import { Feather } from "@expo/vector-icons";
 
-export const Container = styled.View`
-  flex: 1;
-  background-color: ${({theme}) => theme.colors.dark};
-  padding: 20px;
-  justify-content: center;
-  align-items: center;
-`;
+// export const Container = styled.View`
+//   flex: 1;
+//   background-color: ${({theme}) => theme.colors.dark};
+//   padding: 20px;
+//   justify-content: center;
+//   align-items: center;
+// `;
 
-export const Icon = styled(Feather)`
-  font-size: 20px;
-  color: ${({theme}) => theme.colors.primary};
-`;
+// export const Icon = styled(Feather)`
+//   font-size: 20px;
+//   color: ${({theme}) => theme.colors.primary};
+// `;
 
 export const CreateAccountButton = styled.TouchableOpacity`
   position: absolute;
@@ -35,13 +35,13 @@ export const CreateAccountTitle = styled.Text`
   margin-left: 16px;
 `;
 
-export const ErrorMessage = styled.Text`
-  font-size: 12px;
-  color: ${({theme}) => theme.colors.danger};
-`; 
+// export const ErrorMessage = styled.Text`
+//   font-size: 12px;
+//   color: ${({theme}) => theme.colors.danger};
+// `; 
 
-export const InputStyle = styled.Text`
-  font-size: 20px;
-  background: black;
-  color: yellow;
-`
+// export const InputStyle = styled.Text`
+//   font-size: 20px;
+//   background: black;
+//   color: yellow;
+// `

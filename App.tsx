@@ -21,6 +21,9 @@ import Login from './pages/Login/Login'
 import {NavigationContainer} from '@react-navigation/native'
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { ThemeProvider } from 'styled-components'
+
+import theme from './global/styles/theme'
 
 import {
   Colors,
@@ -39,14 +42,16 @@ function App(): JSX.Element {
 
   return (
     <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Login" component={Login} />
-        <Tab.Screen
-          name="Profile"
-          component={ProfileScreen}
-          // navigation={navigation}
-        />
-      </Tab.Navigator>  
+      <ThemeProvider theme={theme}>
+        <Tab.Navigator>
+          <Tab.Screen name="Login" component={Login} />
+          <Tab.Screen
+            name="Profile"
+            component={ProfileScreen}
+            // navigation={navigation}
+          />
+        </Tab.Navigator>
+      </ThemeProvider>
     </NavigationContainer>
   );
 }
