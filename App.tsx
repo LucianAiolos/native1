@@ -18,6 +18,7 @@ import {
 import HomeScreen from './pages/HomeScreen'
 import ProfileScreen from './pages/ProfileScreen';
 import Login from './pages/Login/Login'
+import SignUp from './pages/SignUp/SignUp'
 import {NavigationContainer} from '@react-navigation/native'
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -44,11 +45,15 @@ function App(): JSX.Element {
     <NavigationContainer>
       <ThemeProvider theme={theme}>
         <Tab.Navigator>
-          <Tab.Screen name="Login" component={Login} />
+          <Tab.Screen name="LogIn" component={Login} />
           <Tab.Screen
             name="Profile"
             component={ProfileScreen}
             // navigation={navigation}
+          />
+          <Tab.Screen
+            name="SignUp"
+            component={SignUp}
           />
         </Tab.Navigator>
       </ThemeProvider>
