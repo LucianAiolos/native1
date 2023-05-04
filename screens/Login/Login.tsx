@@ -1,11 +1,11 @@
 /* eslint-disable */
 import React from 'react';
-import { ScrollView, Text, View, Button, TextInput, KeyboardAvoidingView} from 'react-native';
+import { ScrollView, Text, View, Button, TextInput, KeyboardAvoidingView, Pressable, StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native'
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import { CreateAccountButton, CreateAccountTitle } from './loginStyles';
+import { CreateAccountButton, CreateAccountTitle, Input } from './loginStyles';
 
 const initialValues = {
   email: '',
@@ -22,6 +22,7 @@ const validationSchema =  Yup.object().shape({
     .required("Please enter a password")
     .min(8, "password must be 8 characters long"),
 })
+
 
 const Login = ({ navigation } : {navigation: any}) => {
 // const navigation = useNavigation() 
@@ -60,7 +61,7 @@ return (
     >
       {/* <Container> */}
         <Text>Email</Text>
-        <TextInput 
+        <Input 
           // style={InputStyle}
           placeholder="JohnSno@got.com"
           onChangeText={handleChange('email')}
@@ -68,21 +69,22 @@ return (
           // errorMessage={touched.email && errors.password}
         />
         <Text  >Password</Text>
-        <TextInput 
+        <Input 
+          style={{marginBottom: 50}}
           placeholder="Create password"
           onChangeText={handleChange('password')}
           value={values.password}
           // errorMessage={touched.password && errors.password}
         />
-        <Button 
-          title="Sign in"
+        <Pressable
           onPress={handleSubmit} 
-          disabled={!isValid || isSubmitting} //isDisabled?
-          // isLoading={isSubmitting}
-        />
+          // disabled={!isValid || isSubmitting} //isDisabled?
+           style={buttonStyles.button}
+        >
+          <Text style={buttonStyles.text}>Submit</Text>
+        </Pressable>
       {/* </Container> */}
     </ScrollView>
-    <Text>Or</Text>
     <CreateAccountButton title="Create Account" onPress={() => navigation.navigate('SignUp')}>
       <CreateAccountTitle>Don't have an account? Sign Up</CreateAccountTitle>
     </CreateAccountButton>
@@ -91,5 +93,25 @@ return (
   </KeyboardAvoidingView>
 );
 }
+
+
+const buttonStyles = StyleSheet.create({
+  button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 15,
+    elevation: 3,
+    backgroundColor: 'goldenrod',
+  },
+  text: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: 'white'
+  }
+})
 
 export default Login
