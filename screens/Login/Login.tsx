@@ -23,6 +23,7 @@ const validationSchema =  Yup.object().shape({
     .min(8, "password must be 8 characters long"),
 })
 
+
 const Login = ({ navigation } : {navigation: any}) => {
 // const navigation = useNavigation() 
 //can be used when navigation cannot be passed (ie deeply nested componenets)

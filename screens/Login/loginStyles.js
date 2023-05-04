@@ -61,3 +61,6 @@ export const Input = styled(TextInput).attrs(({theme}) => ({
   margin-bottom: 8px;
   font-size: 14px;
 `;
+
+
+// CREATE COMPONENTS FOLDER WITH BUTTONS AND INPUTS 

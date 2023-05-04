@@ -15,14 +15,16 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-import HomeScreen from './pages/HomeScreen'
-import ProfileScreen from './pages/ProfileScreen';
-import Login from './pages/Login/Login'
-import SignUp from './pages/SignUp/SignUp'
+import HomeScreen from './screens/HomeScreen'
+import ProfileScreen from './screens/ProfileScreen';
+import Login from './screens/Login/Login'
+import SignUp from './screens/SignUp/SignUp'
 import {NavigationContainer} from '@react-navigation/native'
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { ThemeProvider } from 'styled-components'
+import { Provider } from 'react-redux'
+import { store } from './redux/store'
 
 import theme from './global/styles/theme'
 
