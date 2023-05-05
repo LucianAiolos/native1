@@ -14,13 +14,13 @@ const initialValues = {
 
 const validationSchema =  Yup.object().shape({
   email: Yup.string()
-    .label('Email')
+    // .label('Email')
     .email('Enter a valid email')
     .required('Please enter a registered Email'),
   password: Yup.string()
-    .label("Password")
-    .required("Please enter a password")
-    .min(8, "password must be 8 characters long"),
+    // .label("Password")
+    .min(8, "password must be 8 characters long")
+    .required("Please enter a password"),
 })
 
 
@@ -28,10 +28,7 @@ const Login = ({ navigation } : {navigation: any}) => {
 // const navigation = useNavigation() 
 //can be used when navigation cannot be passed (ie deeply nested componenets)
 const onSubmit = (values: {}) => {
-  console.log(values)
-  // setTimeout(() => {
-  //   navigation.navigate('Home');
-  // }, 3000);
+  console.log(values, 'in onSubmit')
 };
 
 const formik = useFormik({
@@ -63,6 +60,7 @@ return (
         <Text>Email</Text>
         <Input 
           // style={InputStyle}
+          name="email"
           placeholder="JohnSno@got.com"
           onChangeText={handleChange('email')}
           value={values.email}
@@ -70,6 +68,7 @@ return (
         />
         <Text  >Password</Text>
         <Input 
+          name="password"
           style={{marginBottom: 50}}
           placeholder="Create password"
           onChangeText={handleChange('password')}
