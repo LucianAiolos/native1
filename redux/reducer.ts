@@ -8,7 +8,7 @@ const initialState: UserState = {
   }
 }
 
-const reducer = (
+export const reducer = (
   state: UserState = initialState,
   action: UserAction
 ) : UserState => {
@@ -29,3 +29,4 @@ const reducer = (
   }
   return state
 }
+
