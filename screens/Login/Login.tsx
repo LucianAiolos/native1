@@ -40,6 +40,7 @@ const formik = useFormik({
 const {
   values,
   touched,
+  handleBlur,
   errors,
   handleChange,
   isSubmitting,
@@ -61,20 +62,29 @@ return (
         <Input 
           // style={InputStyle}
           name="email"
+          onBlur={handleBlur('email')}
           placeholder="JohnSno@got.com"
           onChangeText={handleChange('email')}
           value={values.email}
-          // errorMessage={touched.email && errors.password}
+          keyboardType="email-address"
+          errorMessage={touched.email && errors.email}
         />
+        {errors.email &&
+          <Text style={{ fontSize: 10, color: 'red'}}>{errors.email}</Text>
+        }
         <Text  >Password</Text>
         <Input 
           name="password"
-          style={{marginBottom: 50}}
+          onBlur={handleBlur('password')}
           placeholder="Create password"
           onChangeText={handleChange('password')}
           value={values.password}
-          // errorMessage={touched.password && errors.password}
+          secureTextEntry
+          errorMessage={touched.password && errors.password}
         />
+        {errors.password &&
+          <Text style={{ fontSize: 10, color: 'red'}}>{errors.password}</Text>
+        }
         <Pressable
           onPress={handleSubmit} 
           // disabled={!isValid || isSubmitting} //isDisabled?
@@ -103,6 +113,7 @@ const buttonStyles = StyleSheet.create({
     borderRadius: 15,
     elevation: 3,
     backgroundColor: 'goldenrod',
+    marginTop: 42,
   },
   text: {
     fontSize: 16,
