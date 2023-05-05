@@ -14,13 +14,13 @@ const initialValues = {
 
 const validationSchema =  Yup.object().shape({
   email: Yup.string()
-    .label('Email')
+    // .label('Email')
     .email('Enter a valid email')
     .required('Please enter a registered Email'),
   password: Yup.string()
-    .label("Password")
-    .required("Please enter a password")
-    .min(8, "password must be 8 characters long"),
+    // .label("Password")
+    .min(8, "password must be 8 characters long")
+    .required("Please enter a password"),
 })
 
 
@@ -28,10 +28,7 @@ const Login = ({ navigation } : {navigation: any}) => {
 // const navigation = useNavigation() 
 //can be used when navigation cannot be passed (ie deeply nested componenets)
 const onSubmit = (values: {}) => {
-  console.log(values)
-  // setTimeout(() => {
-  //   navigation.navigate('Home');
-  // }, 3000);
+  console.log(values, 'in onSubmit')
 };
 
 const formik = useFormik({
@@ -43,6 +40,7 @@ const formik = useFormik({
 const {
   values,
   touched,
+  handleBlur,
   errors,
   handleChange,
   isSubmitting,
@@ -63,19 +61,30 @@ return (
         <Text>Email</Text>
         <Input 
           // style={InputStyle}
+          name="email"
+          onBlur={handleBlur('email')}
           placeholder="JohnSno@got.com"
           onChangeText={handleChange('email')}
           value={values.email}
-          // errorMessage={touched.email && errors.password}
+          keyboardType="email-address"
+          errorMessage={touched.email && errors.email}
         />
+        {errors.email &&
+          <Text style={{ fontSize: 10, color: 'red'}}>{errors.email}</Text>
+        }
         <Text  >Password</Text>
         <Input 
-          style={{marginBottom: 50}}
+          name="password"
+          onBlur={handleBlur('password')}
           placeholder="Create password"
           onChangeText={handleChange('password')}
           value={values.password}
-          // errorMessage={touched.password && errors.password}
+          secureTextEntry
+          errorMessage={touched.password && errors.password}
         />
+        {errors.password &&
+          <Text style={{ fontSize: 10, color: 'red'}}>{errors.password}</Text>
+        }
         <Pressable
           onPress={handleSubmit} 
           // disabled={!isValid || isSubmitting} //isDisabled?
@@ -104,6 +113,7 @@ const buttonStyles = StyleSheet.create({
     borderRadius: 15,
     elevation: 3,
     backgroundColor: 'goldenrod',
+    marginTop: 42,
   },
   text: {
     fontSize: 16,
