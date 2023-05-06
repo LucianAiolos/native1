@@ -1,53 +1,15 @@
 import * as actionTypes from './actionTypes'
 // import uuid from 'react-native-uuid'
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 
 // const user = JSON.parse(localStorage.set)  ADD USER TO LOCAL STORAGE
 
-const initialState: UserState = {
-  user: {
+const initialState: IUser = {
     // id: '',
     name: '',
     email: '',
     password: '',
-  },
-  // isError: false,
-  // isSuccess: false,
-  // isLoading: false,
-  // message: "",
 }
-
-// export const reducer = (
-//   state: UserState = initialState,
-//   action: UserAction
-// ) : UserState => {
-//   switch (action.type) {
-//     case actionTypes.ADD_USER:
-//       const newUser: IUser = {
-//         name: action.user.name,
-//         email: action.user.email,
-//         password: action.user.password,
-//         // id: action.user.id,
-//       }
-//       return {
-//         user: state.user
-//       }
-//     case actionTypes.DEFAULT_USER:
-//       const defaultUser: IUser = {
-//         name: 'default name',
-//         email: 'default email',
-//         password: 'default password'
-//         // id: '123'
-//       }
-//   }
-//   return state
-// }
-export const createUser = createAsyncThunk(
-    'create_user',
-    async(userData: IUser) =>  {
-    return userData
-  }
-)
 
 export const userSlice = createSlice({
   name: 'user',
@@ -55,20 +17,24 @@ export const userSlice = createSlice({
   reducers: {
     reset: (state) => {
       console.log('reseting state')
-    }
+    }, 
+    createUser: (state, action: PayloadAction<IUser>) => {
+      console.log(action.payload, 'in slice')
+      state = action.payload
+    },
   },
-  extraReducers: builder => {
-    builder
+  // extraReducers: builder => {
+  //   builder
       // .addCase(createUser.pending, (state) => {
       //   state.status = 'loading'
       // })
-      .addCase(createUser.fulfilled, (state, action ) => {
-        state.user = action.payload
-      })
-  }
+      // .addCase(createUser.fulfilled, (state, action: PayloadAction<IUser> ) => {
+      //   state.user = action.payload
+      // })
+  // }
 })
 
 
 
-export const { reset } = userSlice.actions
+export const { reset, createUser } = userSlice.actions
 export default userSlice.reducer

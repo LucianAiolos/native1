@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ScrollView, Text, View, Button, TextInput, KeyboardAvoidingView, Pressable, StyleSheet } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native'
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -7,8 +7,7 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { CreateAccountButton, CreateAccountTitle, Input } from './signUpStyles';
 import { useDispatch, useSelector } from 'react-redux'
-import { createUser } from ''
-// import { addUser } from '.../redux/actionCreators'
+import { createUser } from '../../redux/userSlice' // THIS IS HOW TO ACCESS A FILE THREE FOLDERS DEEP
 
 const initialValues = {
   name: '',
@@ -38,18 +37,23 @@ const validationSchema =  Yup.object().shape({
 })
 
 
-const SignUp = ({ navigation } : {navigation: any}, user, addUser) => {
-  // const dispatch: Dispatch<any> = useDispatch()s
+const SignUp = ({ navigation } : {navigation: any}) => {
+//  Try useAppDispatch() and Type awake hook for type-aware redux interactions
+//   https://egghead.io/lessons/react-create-a-reducer-with-redux-toolkit-and-dispatch-its-action-with-the-useappdispatch-hook
+  const dispatch =  useDispatch()
+  const { user } = useSelector((state: any) => state.user) // set state as any for now
+  console.log(user)
 
+  useEffect(() => {
+    if(user) {
+      navigation.navigate('Profile')
+    }
+  },[user])
 
   const onSubmit = (values: IUser) => {
     console.log(values)
-    // dispatch(addUser)
-    const createUser = React.useCallback(
-      (user: IUser) => dispatch(addUser(user)),
-      [Dispatch, addUser]
-    )
-    createUser(values)
+    dispatch(createUser(values))
+    
   };
 
   const formik = useFormik({
@@ -125,6 +129,7 @@ const SignUp = ({ navigation } : {navigation: any}, user, addUser) => {
           >
             <Text style={buttonStyles.text}>Submit</Text>
           </Pressable>
+          <Text>{user.name}</Text>
         {/* </Container> */}
       </ScrollView>
       <Text>Or</Text>
