@@ -1,6 +1,7 @@
 import * as actionTypes from './actionTypes'
 
 export function addUser(user: IUser) {
+  console.log("in action add user")
   const action: UserAction = {
     type: actionTypes.ADD_USER,
     user,

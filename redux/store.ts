@@ -2,7 +2,7 @@
 
 import { configureStore } from '@reduxjs/toolkit'
 import { Store } from 'redux'
-import { reducer } from './reducer'
+import userReducer from './userSlice'
 // import createWebStorage from 'redux-persist/es/storage/createWebStorage'
 
 // import createReducer from './reducers'
@@ -22,12 +22,8 @@ import { reducer } from './reducer'
 // })
 
 export const store = configureStore({
-  reducer: reducer,
+  reducer: userReducer,
 })
 
 export type AppDispatch = typeof store.dispatch
-
-
-
-// export type RootState = ReturnType<typeof store.getState>
-// export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof store.getState>

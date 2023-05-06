@@ -14,15 +14,14 @@ const initialValues = {
 
 const validationSchema =  Yup.object().shape({
   email: Yup.string()
-    // .label('Email')
+    .label('Email')
     .email('Enter a valid email')
     .required('Please enter a registered Email'),
   password: Yup.string()
-    // .label("Password")
+    .label("Password")
     .min(8, "password must be 8 characters long")
     .required("Please enter a password"),
 })
-
 
 const Login = ({ navigation } : {navigation: any}) => {
 // const navigation = useNavigation() 
@@ -60,7 +59,6 @@ return (
       {/* <Container> */}
         <Text>Email</Text>
         <Input 
-          // style={InputStyle}
           name="email"
           onBlur={handleBlur('email')}
           placeholder="JohnSno@got.com"
@@ -83,7 +81,7 @@ return (
           errorMessage={touched.password && errors.password}
         />
         {errors.password &&
-          <Text style={{ fontSize: 10, color: 'red'}}>{errors.password}</Text>
+          <Text style={{ fontSize: 10, color: 'red', marginBottom: 42}}>{errors.password}</Text>
         }
         <Pressable
           onPress={handleSubmit} 
@@ -113,9 +111,8 @@ const buttonStyles = StyleSheet.create({
     borderRadius: 15,
     elevation: 3,
     backgroundColor: 'goldenrod',
-    marginTop: 42,
   },
-  text: {
+  text: { 
     fontSize: 16,
     lineHeight: 21,
     fontWeight: 'bold',

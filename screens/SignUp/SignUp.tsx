@@ -6,6 +6,9 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { CreateAccountButton, CreateAccountTitle, Input } from './signUpStyles';
+import { useDispatch, useSelector } from 'react-redux'
+import { createUser } from ''
+// import { addUser } from '.../redux/actionCreators'
 
 const initialValues = {
   name: '',
@@ -13,7 +16,17 @@ const initialValues = {
   password: '',
 };
 
+type Props = {
+  user: IUser
+  addUser: (user: IUser) => void
+  // what can I return instead of void?
+}
+
 const validationSchema =  Yup.object().shape({
+  name: Yup.string()
+    .label('Name')
+    .required('Please enter your name.')
+    .min(2, "Name just be at least 2 Chars long"),
   email: Yup.string()
     .label('Email')
     .email('Enter a valid email')
@@ -24,84 +37,104 @@ const validationSchema =  Yup.object().shape({
     .min(8, "password must be 8 characters long"),
 })
 
-const SignUp = ({ navigation } : {navigation: any}) => {
-// const navigation = useNavigation() 
-//can be used when navigation cannot be passed (ie deeply nested componenets)
-const onSubmit = (values: {}) => {
-  console.log(values)
-  // setTimeout(() => {
-  //   navigation.navigate('Home');
-  // }, 3000);
-};
 
-const formik = useFormik({
-  initialValues,
-  validationSchema,
-  onSubmit,
-});
+const SignUp = ({ navigation } : {navigation: any}, user, addUser) => {
+  // const dispatch: Dispatch<any> = useDispatch()s
 
-const {
-  values,
-  touched,
-  errors,
-  handleChange,
-  isSubmitting,
-  isValid,
-  handleSubmit,
-} = formik;
 
-return (
-  <KeyboardAvoidingView 
-    enabled style={{flex: 1}} 
-    // behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-  >
-    <ScrollView 
-      keyboardShouldPersistTaps="handled" 
-      contentContainerStyle={{flex: 1}}
+  const onSubmit = (values: IUser) => {
+    console.log(values)
+    // dispatch(addUser)
+    const createUser = React.useCallback(
+      (user: IUser) => dispatch(addUser(user)),
+      [Dispatch, addUser]
+    )
+    createUser(values)
+  };
+
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit,
+  });
+
+  const {
+    values,
+    touched,
+    errors,
+    handleChange,
+    isSubmitting,
+    isValid,
+    handleBlur,
+    handleSubmit,
+  } = formik;
+
+  return (
+    <KeyboardAvoidingView 
+      enabled style={{flex: 1}} 
+      // behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
-      {/* <Container> */}
-        <Text>Username</Text>
-        <Input 
-          // style={InputStyle}
-          placeholder="John Sno"
-          // placeholderTextColor={'red'}
-          onChangeText={handleChange('name')}
-          value={values.name}
-          // errorMessage={touched.email && errors.password}
-        />
-        <Text>Email</Text>
-        <Input 
-          // style={InputStyle}
-          placeholder="JohnSno@got.com"
-          onChangeText={handleChange('email')}
-          value={values.email}
-          // errorMessage={touched.email && errors.password}
-        />
-        <Text  >Password</Text>
-        <Input 
-          style={{marginBottom: 40}}
-          placeholder="Create password"
-          onChangeText={handleChange('password')}
-          value={values.password}
-          // errorMessage={touched.password && errors.password}
-        />
-        <Pressable
-          onPress={handleSubmit} 
-          // disabled={!isValid || isSubmitting} //isDisabled?
-           style={buttonStyles.button}
-        >
-          <Text style={buttonStyles.text}>Submit</Text>
-        </Pressable>
-      {/* </Container> */}
-    </ScrollView>
-    <Text>Or</Text>
-    <CreateAccountButton title="Create Account" onPress={() => navigation.navigate('LogIn')}>
-      <CreateAccountTitle>Have and Account? Log In</CreateAccountTitle>
-    </CreateAccountButton>
-      {/* <Icon name="log-in" /> */}
-      {/* <CreateAccountTitle>Don't have an account? Sign Up</CreateAccountTitle> */}
-  </KeyboardAvoidingView>
- ) 
+      <ScrollView 
+        keyboardShouldPersistTaps="handled" 
+        contentContainerStyle={{flex: 1}}
+      >
+        {/* <Container> */}
+          <Text>Username</Text>
+          <Input 
+            name="name"
+            onBlur={handleBlur('name')}
+            placeholder="John Sno"
+            onChangeText={handleChange('name')}
+            value={values.name}
+            errorMessage={touched.email && errors.password}
+          />
+          {errors.email &&
+            <Text style={{ fontSize: 10, color: 'red'}}>{errors.name}</Text>
+          }
+          <Text>Email</Text>
+          <Input 
+            name="email"
+            onBlur={handleBlur('email')}
+            placeholder="JohnSno@got.com"
+            onChangeText={handleChange('email')}
+            value={values.email}
+            errorMessage={touched.email && errors.password}
+            keyboardType="email-address"
+            />
+          {errors.email &&
+            <Text style={{ fontSize: 10, color: 'red'}}>{errors.email}</Text>
+          }
+          <Text >Password</Text>
+          <Input 
+            name="password"
+            onBlur={handleBlur('password')}
+            placeholder="Create password"
+            onChangeText={handleChange('password')}
+            value={values.password}
+            errorMessage={touched.password && errors.password}
+            secureTextEntry
+            type="password"
+          />
+          {errors.email &&
+            <Text style={{ fontSize: 10, color: 'red', marginBottom: 42}}>{errors.email}</Text>
+          }
+          <Pressable
+            onPress={handleSubmit} 
+            // disabled={!isValid || isSubmitting} //isDisabled?
+            style={buttonStyles.button}
+          >
+            <Text style={buttonStyles.text}>Submit</Text>
+          </Pressable>
+        {/* </Container> */}
+      </ScrollView>
+      <Text>Or</Text>
+      <CreateAccountButton title="Create Account" onPress={() => navigation.navigate('LogIn')}>
+        <CreateAccountTitle>Have and Account? Log In</CreateAccountTitle>
+      </CreateAccountButton>
+        {/* <Icon name="log-in" /> */}
+        {/* <CreateAccountTitle>Don't have an account? Sign Up</CreateAccountTitle> */}
+    </KeyboardAvoidingView>
+  ) 
 }
 
 
