@@ -4,12 +4,25 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 
 // const user = JSON.parse(localStorage.set)  ADD USER TO LOCAL STORAGE
 
-const initialState: IUser = {
-    // id: '',
+const initialState = {
+  user: {
     name: '',
     email: '',
-    password: '',
+    password: ''
+  }
 }
+
+// export const createUser = createAsyncThunk(
+//   'create_user',
+//   async(data, thunkAPI)=> {
+//     try{
+//       console.log(data, 'inside create user thunk')
+
+//     } catch (err) {
+//       console.log(err)
+//     }
+//   }
+// )
 
 export const userSlice = createSlice({
   name: 'user',
@@ -20,21 +33,21 @@ export const userSlice = createSlice({
     }, 
     createUser: (state, action: PayloadAction<IUser>) => {
       console.log(action.payload, 'in slice')
-      state = action.payload
+      state.user = action.payload
     },
   },
-  // extraReducers: builder => {
+  // extraReducers: (builder) => {
   //   builder
-      // .addCase(createUser.pending, (state) => {
-      //   state.status = 'loading'
-      // })
-      // .addCase(createUser.fulfilled, (state, action: PayloadAction<IUser> ) => {
-      //   state.user = action.payload
-      // })
-  // }
+  //     // .addCase(createUser.pending, (state) => {
+  //     //   state.status = 'loading'
+  //     // })
+  //     .addCase(createUser.fulfilled, (state, action: PayloadAction<IUser> ) => {
+  //       state.user = action.payload
+  //     })
+  // },
 })
 
 
 
-export const { reset, createUser } = userSlice.actions
+export const { reset } = userSlice.actions
 export default userSlice.reducer

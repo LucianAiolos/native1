@@ -1,6 +1,7 @@
 /* eslint-disable */
 // import { composeWithDevTools } from 'redux-devtools-extension'  REDUX DEBUGGER FOR CHROME
 import { configureStore, applyMiddleware, compose } from '@reduxjs/toolkit'
+import { devToolsEnhancer } from 'redux-devtools-extension'
 import { Store } from 'redux'
 import userReducer from './userSlice'
 // import createWebStorage from 'redux-persist/es/storage/createWebStorage'
@@ -22,7 +23,11 @@ import userReducer from './userSlice'
 // })
 
 export const store = configureStore({
-  reducer: userReducer,
+  reducer: {
+    user: userReducer,
+  },
+  devTools: false,
+  enhancers: [devToolsEnhancer({ realtime: true, port: 8000})]
   // composeWithDevTools(applyMiddleware(...middleware),
   // compose(applyMiddleware())
 })

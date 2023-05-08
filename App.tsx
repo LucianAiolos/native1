@@ -48,7 +48,7 @@ function App(): JSX.Element {
         <Provider store={store} >
           <ThemeProvider theme={theme}>
               <Tab.Navigator>
-                <Tab.Screen name="LogIn" component={Login} />
+                {/* <Tab.Screen name="LogIn" component={Login} /> */}
                 <Tab.Screen
                   name="SignUp"
                   component={SignUp}

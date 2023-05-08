@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React, { useEffect } from 'react';
 import { ScrollView, Text, View, Button, TextInput, KeyboardAvoidingView, Pressable, StyleSheet } from 'react-native';
-import {NavigationContainer} from '@react-navigation/native'
+import { NavigationContainer } from '@react-navigation/native'
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
@@ -42,7 +42,7 @@ const SignUp = ({ navigation } : {navigation: any}) => {
 //   https://egghead.io/lessons/react-create-a-reducer-with-redux-toolkit-and-dispatch-its-action-with-the-useappdispatch-hook
   const dispatch =  useDispatch()
   const { user } = useSelector((state: any) => state.user) // set state as any for now
-  console.log(user)
+  console.log(user, 'user')
 
   useEffect(() => {
     if(user) {
@@ -129,7 +129,7 @@ const SignUp = ({ navigation } : {navigation: any}) => {
           >
             <Text style={buttonStyles.text}>Submit</Text>
           </Pressable>
-          <Text>{user.name}</Text>
+          <Text>{user ? user.name : 'no name'}</Text>
         {/* </Container> */}
       </ScrollView>
       <Text>Or</Text>
